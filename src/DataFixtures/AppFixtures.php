@@ -27,6 +27,7 @@ class AppFixtures extends Fixture
                 ->setLastName('Admin')
                 ->setGender('mail')
                 ->setIsActive(1)
+                ->setRoles(['ROLE_ADMIN'])
                 ->setRegisterDate(new \DateTime())
                 ->setCountry('Canada');
 
