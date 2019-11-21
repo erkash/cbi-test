@@ -17,9 +17,9 @@ security:
             anonymous: true
             provider: in_database
             form_login:
-                default_target_path: /
                 login_path: security_login
                 check_path: security_login
+                success_handler: login_success_handler
             logout:
                 path: security_logout
                 target: security_login

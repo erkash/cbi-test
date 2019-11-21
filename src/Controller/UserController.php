@@ -8,6 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -42,8 +43,13 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
+            $user->setRoles(['ROLE_USER']);
             $manager->persist($user);
             $manager->flush();
+
+            $token = new UsernamePasswordToken($user, $hash, 'main', $user->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
 
             return $this->redirectToRoute('profile', [
                 'id' => $user->getId()
@@ -61,7 +67,7 @@ class UserController extends AbstractController
      * @param AuthenticationUtils $authenticationUtils
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function login(Request $request,AuthenticationUtils $authenticationUtils )
+    public function login(Request $request, AuthenticationUtils $authenticationUtils)
     {
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -70,9 +76,10 @@ class UserController extends AbstractController
 
         return $this->render('user/login.html.twig', [
             'last_username' => $lastUsername,
-            'error'         => $error
+            'error' => $error
         ]);
     }
+
     /**
      * @Route("/logout", name="security_logout")
      */
@@ -89,12 +96,9 @@ class UserController extends AbstractController
      */
     public function profile(User $profile)
     {
-        if (!$profile) {
-            return $this->redirectToRoute('security_login');
-        }
-
         return $this->render('user/profile.html.twig', [
-            'profile' => $profile
+            'profile' => $profile,
         ]);
     }
+
 }

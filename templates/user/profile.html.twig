@@ -3,14 +3,43 @@
 {% block body %}
     <div class="container ">
         <div class="row">
-            <div class="col-lg-3">
-                <h1 class="text-center">
-                    <span>&#171;</span>{{ profile.username }}<span>&#187;</span>
-                </h1>
-                <div class="text-center">
-
-                </div>
-                <h3 class="text-center">{{ profile.name }}</h3>
+            <div class="col-lg-6">
+                <table border="0" cellpadding="3" class="table">
+                    <tr>
+                        <th> Name</th>
+                        <td>{{ profile.name }} </td>
+                    </tr>
+                    <tr>
+                        <th> Last name</th>
+                        <td> {{ profile.lastName }}  </td>
+                    </tr>
+                    {% if profile.patronymic %}
+                    <tr>
+                        <th> Patronymic </th>
+                        <td>{{ profile.patronymic }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th> Username </th>
+                        <td>{{ profile.username }}</td>
+                    </tr>
+                    <tr>
+                        <th> Email </th>
+                        <td>{{ profile.email }}</td>
+                    </tr>
+                    <tr>
+                        <th> Country </th>
+                        <td>{{ profile.country }}</td>
+                    </tr>
+                    <tr>
+                        <th> Gender </th>
+                        <td>{{ profile.gender }}</td>
+                    </tr>
+                    <tr>
+                        <th> Register date </th>
+                        <td>{{ profile.registerDate|date() }}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

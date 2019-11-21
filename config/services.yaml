@@ -26,6 +26,14 @@ services:
     App\EventListener\LoginListener:
         tags:
             - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+        arguments: ['@doctrine.orm.entity_manager', '@Symfony\Component\Routing\RouterInterface']
+
+    login_success_handler:
+        class:      App\Handler\LoginSuccessHandler
+        arguments:  ['@Symfony\Component\Routing\RouterInterface', '@Symfony\Component\Security\Core\Security']
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
+
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
