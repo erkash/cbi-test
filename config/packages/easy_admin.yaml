@@ -1,0 +1,39 @@
+easy_admin:
+    design:
+        menu:
+            - { label: 'Homepage', icon: 'home', route: 'homepage' }
+            - { entity: 'User', icon: 'user' }
+        brand_color: '#375a7f'
+    entities:
+        User:
+            class: App\Entity\User
+            list:
+                actions: ['show', 'edit', 'delete', 'search']
+                filters: ['country', 'enabled', 'gender', 'username']
+                fields:
+                    - { property: 'id' }
+                    - { property: 'country', type: 'country' }
+                    - { property: 'name'}
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'registerDate' }
+                    - { property: 'gender' }
+                    - { property: 'enabled' }
+            edit:
+                fields:
+                    - { property: 'enabled'}
+                    - { property: 'country', type: 'country'}
+                    - { property: 'gender', type: 'choice', type_options: {choices: {'M': 'Male', 'F': 'Female' }, expanded: true, multiple: false}}
+            form:
+                fields:
+                    - { property: 'email' }
+                    - { property: 'username' }
+                    - { property: 'password', type: 'password' }
+                    - { property: 'confirm_password', type: 'password' }
+                    - { property: 'name' }
+                    - { property: 'lastName'}
+                    - { property: 'patronymic'}
+                    - { property: 'country', type: 'country' }
+                    - { property: 'gender', type: 'choice', type_options: {choices: {'M': 'Male', 'F': 'Female' }, expanded: true, multiple: false}}
+                    - { property: 'enabled' }
+

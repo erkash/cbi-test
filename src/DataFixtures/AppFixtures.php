@@ -25,11 +25,11 @@ class AppFixtures extends Fixture
                 ->setEmail('admin@gmail.com')
                 ->setName('Admin')
                 ->setLastName('Admin')
-                ->setGender('mail')
-                ->setIsActive(1)
+                ->setGender('male')
+                ->setEnabled(1)
                 ->setRoles(['ROLE_ADMIN'])
                 ->setRegisterDate(new \DateTime())
-                ->setCountry('Canada');
+                ->setCountry('CA');
 
         $password = $this->encoder->encodePassword($user, '123123');
         $user->setPassword($password);

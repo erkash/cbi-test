@@ -97,7 +97,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isActive;
+    private $enabled;
 
     /**
      * @ORM\Column(type="datetime")
@@ -109,10 +109,15 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
     public function __construct()
     {
         $this->registerDate = new \DateTime();
-        $this->isActive = 1;
+        $this->enabled = 1;
     }
 
     public function getId(): ?int
@@ -236,14 +241,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getIsActive(): ?bool
+    public function getEnabled(): ?bool
     {
-        return $this->isActive;
+        return $this->enabled;
     }
 
-    public function setIsActive(bool $isActive): self
+    public function setEnabled(bool $enabled): self
     {
-        $this->isActive = $isActive;
+        $this->enabled = $enabled;
 
         return $this;
     }
@@ -281,5 +286,17 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeInterface $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
     }
 }

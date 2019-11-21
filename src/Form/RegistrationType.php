@@ -39,8 +39,8 @@ class RegistrationType extends AbstractType
             ])
             ->add('gender', ChoiceType::class,  [
                  'choices' => [
-                     'M' => 'male',
-                     'F' => 'female'
+                     'M' => 'Male',
+                     'F' => 'Female'
                  ],
                  'expanded' => true,
                  'multiple' => false

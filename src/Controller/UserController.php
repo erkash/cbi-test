@@ -82,10 +82,10 @@ class UserController extends AbstractController
     }
 
 
-
     /**
      * @Route("/user/{id}", name="profile")
      * @param User $profile
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function profile(User $profile)
     {
